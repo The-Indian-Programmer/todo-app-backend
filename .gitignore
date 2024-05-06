@@ -6,10 +6,11 @@
 # Node artifact files
 node_modules/
 dist/
+
 .env
-.env_prod
-.env_staging
+
 logs/
+
 sequelizeModels/
 
 Archive.zip
