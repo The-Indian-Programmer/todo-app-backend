@@ -47,14 +47,14 @@ const getTaskListValidator = (req, res, next) => {
 }
 
 
-const updateTaskPriorityValidator = (req, res, next) => {
-    const { taskId, priority } = req.body;
+const updateTaskStatusValidator = (req, res, next) => {
+    const { taskId, taskStatus } = req.body;
     const schema = joi.object({
         taskId: joi.string().required().messages({ 'any.required': 'Task ID is required' }),
-        priority: joi.string().required().messages({ 'any.required': 'Priority is required' }).valid('low', 'medium', 'high').messages({ 'any.only': 'Priority must be low, medium or high' })
+        taskStatus: joi.string().required().messages({ 'any.required': 'Status is required' }).valid('todo', 'in-progress', 'completed').messages({ 'any.only': 'Status must be Todo, InProgress or Completed' })
     });
     
-    const { error } = schema.validate({ taskId, priority }, options);
+    const { error } = schema.validate({ taskId, taskStatus }, options);
     
     if (error) {
         const message = error.details[0].message.replace(/['"]+/g, '');
@@ -123,7 +123,7 @@ const updateTaskValidator = (req, res, next) => {
 }
 
 module.exports = {
-    createTaskValidator, getTaskListValidator,  updateTaskPriorityValidator, deleteTaskValidator, getOneTaskValidator, updateTaskValidator
+    createTaskValidator, getTaskListValidator,  updateTaskStatusValidator, deleteTaskValidator, getOneTaskValidator, updateTaskValidator
 }
 
 

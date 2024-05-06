@@ -89,16 +89,16 @@ class TaskService {
         }
     }
 
-    updateTaskPriority = async (data, user) => {
+    updateTaskStatus = async (data, user) => {
         try {
-            const { taskId, priority } = data;
+            const { taskId, taskStatus } = data;
             const { id: userId } = user;
 
-            const taskInfo = await this.taskDao.findOneByWhere({ userId, taskId }, ['taskId', 'priority']);
+            const taskInfo = await this.taskDao.findOneByWhere({ userId, taskId }, ['taskId', 'taskStatus']);
 
             if (!taskInfo) return responsHandler.returnError(httpStatus.NOT_FOUND, msgHelper.message('en', 'TASK_NOT_FOUND'));
 
-            const response = await this.taskDao.update({ priority, updatedBy: userId, updatedAt: getCurrentTime() }, { userId, taskId });
+            const response = await this.taskDao.update({ taskStatus, updatedBy: userId, updatedAt: getCurrentTime() }, { userId, taskId });
 
             if (!response) return responsHandler.returnError(httpStatus.INTERNAL_SERVER_ERROR, msgHelper.message('en', 'INTERNAL_SERVER_ERROR'));
 
@@ -106,7 +106,7 @@ class TaskService {
 
         } catch (error) {
             console.log(error)
-            logger.error('TaskService.updateTaskPriority', error);
+            logger.error('TaskService.updateTaskStatus', error);
             return responsHandler.returnError(httpStatus.INTERNAL_SERVER_ERROR, msgHelper.message('en', 'INTERNAL_SERVER_ERROR'));
         }
     }

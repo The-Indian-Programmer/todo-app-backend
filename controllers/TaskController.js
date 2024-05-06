@@ -45,11 +45,11 @@ class TaskController {
         }
      }
 
-    updateTaskPriority = async (req, res) => { 
+     updateTaskStatus = async (req, res) => { 
         try {
             const user = req.user;
             const data = req.body;
-            const response = await this.taskService.updateTaskPriority(data, user);
+            const response = await this.taskService.updateTaskStatus(data, user);
             return res.status(response.code).json(response);
         } catch (error) {
             console.log(error);
