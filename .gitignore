@@ -6,8 +6,9 @@
 # Node artifact files
 node_modules/
 dist/
-.env_local
-.env_dev
+.env
+.env_prod
+.env_staging
 logs/
 sequelizeModels/
 
